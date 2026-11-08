@@ -345,6 +345,13 @@ class URLTest(fixtures.TestBase):
             url.make_url("drivername:///?%s" % expected),
         )
 
+    def test_update_query_pairs_repeated_list_value(self):
+        updated = url.make_url("drivername://").update_query_pairs(
+            [("a", "x"), ("a", ["y", "z"])]
+        )
+        eq_(updated, url.make_url("drivername://?a=x&a=y&a=z"))
+        eq_(str(updated), "drivername://?a=x&a=y&a=z")
+
     def test_difference_update_query_generator(self):
         u = url.make_url("drivername:///?foo=bar&bat=hi&hoho=lala")
         eq_(

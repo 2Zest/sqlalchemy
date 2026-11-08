@@ -461,7 +461,7 @@ class URL(NamedTuple):
         for key, value in key_value_pairs:
             if key in new_keys:
                 new_keys[key] = util.to_list(new_keys[key])
-                cast("List[str]", new_keys[key]).append(cast(str, value))
+                cast("List[str]", new_keys[key]).extend(util.to_list(value))
             else:
                 new_keys[key] = (
                     list(value) if isinstance(value, (list, tuple)) else value
